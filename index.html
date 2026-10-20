@@ -1,89 +1,473 @@
 <title>Lubna Shireen R Certificates</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout concept: a registry. Name and ledger on top, a sticky filter bar, then one section per issuer group with a grid of certificate cards that open into a viewer. */
-:root{
-  --bg:#EEF1F5; --surface:#FFFFFF; --thumb:#E4E9F0; --ink:#0F1A26; --muted:#52627A; --line:#D3DBE5;
-  --accent:#0B5E94; --accent-ink:#FFFFFF; --signal:#B86A00; --scrim:rgba(10,18,28,.72);
-  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
-  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0C131B; --surface:#141E29; --thumb:#1D2A38; --ink:#E8EEF4; --muted:#93A3B8; --line:#263444;
-  --accent:#62B5EA; --accent-ink:#06121C; --signal:#F2A93B; --scrim:rgba(2,6,10,.8); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0C131B; --surface:#141E29; --thumb:#1D2A38; --ink:#E8EEF4; --muted:#93A3B8; --line:#263444;
-  --accent:#62B5EA; --accent-ink:#06121C; --signal:#F2A93B; --scrim:rgba(2,6,10,.8); color-scheme:dark}
+  /* Layout concept: a registry. Name and ledger on top, a sticky filter bar, then one section per issuer group with a grid of certificate cards that open into a viewer. */
+  :root {
+    --bg: #EEF1F5;
+    --surface: #FFFFFF;
+    --thumb: #E4E9F0;
+    --ink: #0F1A26;
+    --muted: #52627A;
+    --line: #D3DBE5;
+    --accent: #0B5E94;
+    --accent-ink: #FFFFFF;
+    --signal: #B86A00;
+    --scrim: rgba(10, 18, 28, .72);
+    --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
 
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
-.wrap{max-width:1180px;margin-inline:auto}
-a{color:var(--accent)}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0C131B;
+      --surface: #141E29;
+      --thumb: #1D2A38;
+      --ink: #E8EEF4;
+      --muted: #93A3B8;
+      --line: #263444;
+      --accent: #62B5EA;
+      --accent-ink: #06121C;
+      --signal: #F2A93B;
+      --scrim: rgba(2, 6, 10, .8);
+      color-scheme: dark
+    }
+  }
 
-header.top{padding-block:56px 28px;display:grid;gap:28px}
-.kicker{font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-h1{font:700 clamp(40px,8vw,84px)/.96 var(--f-display);letter-spacing:-.025em;margin:10px 0 14px;text-wrap:balance}
-.sub{max-width:60ch;color:var(--muted);font-size:17px;margin:0}
-.ledger{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.ledger div{flex:1 1 150px;padding:16px 20px 16px 0;min-width:0}
-.ledger b{display:block;font:600 34px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
-.ledger span{font:500 11px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  :root[data-theme="dark"] {
+    --bg: #0C131B;
+    --surface: #141E29;
+    --thumb: #1D2A38;
+    --ink: #E8EEF4;
+    --muted: #93A3B8;
+    --line: #263444;
+    --accent: #62B5EA;
+    --accent-ink: #06121C;
+    --signal: #F2A93B;
+    --scrim: rgba(2, 6, 10, .8);
+    color-scheme: dark
+  }
 
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;border-bottom:1px solid var(--line);
-  display:grid;gap:10px}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-.search{width:100%;max-width:420px;padding:10px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:inherit}
-.search::placeholder{color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 12px;font:500 13px/1.2 var(--f-body);cursor:pointer;color:var(--ink)}
-.chip small{font:400 11px var(--f-mono);color:var(--muted);margin-left:6px}
-.chip:hover{border-color:var(--accent)}
-.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.chip[aria-pressed="true"] small{color:inherit;opacity:.8}
+  * {
+    box-sizing: border-box
+  }
 
-section.group{padding-top:44px}
-.ghead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-.ghead h2{font:700 clamp(24px,3.4vw,32px)/1.1 var(--f-display);margin:0;letter-spacing:-.01em}
-.ghead .n{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.08em}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.card{display:flex;flex-direction:column;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0;cursor:pointer;overflow:hidden;min-width:0;
-  transition:border-color .15s,transform .15s}
-.card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.card .im{aspect-ratio:4/3;background:var(--thumb);display:block;width:100%;border-bottom:1px solid var(--line)}
-.card img{width:100%;height:100%;object-fit:contain;display:block}
-.card .tx{padding:12px 14px 14px;display:grid;gap:6px;flex:1;align-content:start}
-.card h3{font:600 15px/1.3 var(--f-body);margin:0;text-wrap:pretty;overflow-wrap:anywhere}
-.card .org{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
-.card .meta{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:auto;padding-top:4px;font:400 12px var(--f-mono);color:var(--muted)}
-.tag{font:500 10.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:4px 6px;color:var(--muted);white-space:nowrap}
-.tag.pub{color:var(--signal);border-color:var(--signal)}
-.empty{padding:60px 0;color:var(--muted);text-align:center}
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.5 var(--f-body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 0 64px
+  }
 
-#viewer{position:fixed;inset:0;z-index:20;background:var(--scrim);display:flex;align-items:center;justify-content:center;
-  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-#viewer[hidden]{display:none}
-.vbox{background:var(--surface);border:1px solid var(--line);border-radius:10px;width:min(1100px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(260px,1fr)}
-.vimg{background:var(--thumb);display:flex;align-items:center;justify-content:center;padding:12px;min-width:0}
-.vimg img{max-width:100%;max-height:78vh;height:auto;display:block}
-.vinfo{padding:22px;display:grid;gap:12px;align-content:start;min-width:0}
-.vinfo h3{font:700 24px/1.15 var(--f-display);margin:0;text-wrap:balance;overflow-wrap:anywhere}
-.vinfo dl{margin:0;display:grid;gap:10px}
-.vinfo dt{font:500 11px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.vinfo dd{margin:2px 0 0;overflow-wrap:anywhere}
-.vinfo .mono{font-family:var(--f-mono);font-size:13px}
-.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:6px;padding:8px 12px;text-decoration:none;color:var(--ink);cursor:pointer;font:500 14px var(--f-body)}
-.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn:hover{border-color:var(--accent)}
-.nav{display:flex;gap:8px;margin-top:6px;padding-top:12px;border-top:1px solid var(--line)}
-@media (max-width:760px){.vbox{grid-template-columns:minmax(0,1fr)}.vimg img{max-height:50vh}}
-@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
-footer{padding-top:48px;color:var(--muted);font:12px var(--f-mono)}
+  .wrap {
+    max-width: 1180px;
+    margin-inline: auto
+  }
+
+  a {
+    color: var(--accent)
+  }
+
+  button {
+    font: inherit;
+    color: inherit
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px
+  }
+
+  header.top {
+    padding-block: 56px 28px;
+    display: grid;
+    gap: 28px
+  }
+
+  .kicker {
+    font: 500 12px/1 var(--f-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted)
+  }
+
+  h1 {
+    font: 700 clamp(40px, 8vw, 84px)/.96 var(--f-display);
+    letter-spacing: -.025em;
+    margin: 10px 0 14px;
+    text-wrap: balance
+  }
+
+  .sub {
+    max-width: 60ch;
+    color: var(--muted);
+    font-size: 17px;
+    margin: 0
+  }
+
+  .ledger {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line)
+  }
+
+  .ledger div {
+    flex: 1 1 150px;
+    padding: 16px 20px 16px 0;
+    min-width: 0
+  }
+
+  .ledger b {
+    display: block;
+    font: 600 34px/1.1 var(--f-display);
+    font-variant-numeric: tabular-nums
+  }
+
+  .ledger span {
+    font: 500 11px/1.3 var(--f-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted)
+  }
+
+  .bar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--bg);
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    gap: 10px
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    z-index: 10
+  }
+
+  .search {
+    width: 100%;
+    max-width: 420px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit
+  }
+
+  .search::placeholder {
+    color: var(--muted)
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px
+  }
+
+  .chip {
+    border: 1px solid var(--line);
+    background: transparent;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font: 500 13px/1.2 var(--f-body);
+    cursor: pointer;
+    color: var(--ink)
+  }
+
+  .chip small {
+    font: 400 11px var(--f-mono);
+    color: var(--muted);
+    margin-left: 6px
+  }
+
+  .chip:hover {
+    border-color: var(--accent)
+  }
+
+  .chip[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink)
+  }
+
+  .chip[aria-pressed="true"] small {
+    color: inherit;
+    opacity: .8
+  }
+
+  section.group {
+    padding-top: 44px
+  }
+
+  .ghead {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px
+  }
+
+  .ghead h2 {
+    font: 700 clamp(24px, 3.4vw, 32px)/1.1 var(--f-display);
+    margin: 0;
+    letter-spacing: -.01em
+  }
+
+  .ghead .n {
+    font: 500 12px var(--f-mono);
+    color: var(--muted);
+    letter-spacing: .08em
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 18px
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    min-width: 0;
+    transition: border-color .15s, transform .15s
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px)
+  }
+
+  .card .im {
+    aspect-ratio: 4/3;
+    background: var(--thumb);
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid var(--line)
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block
+  }
+
+  .card .tx {
+    padding: 12px 14px 14px;
+    display: grid;
+    gap: 6px;
+    flex: 1;
+    align-content: start
+  }
+
+  .card h3 {
+    font: 600 15px/1.3 var(--f-body);
+    margin: 0;
+    text-wrap: pretty;
+    overflow-wrap: anywhere
+  }
+
+  .card .org {
+    color: var(--muted);
+    font-size: 13px;
+    overflow-wrap: anywhere
+  }
+
+  .card .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 4px;
+    font: 400 12px var(--f-mono);
+    color: var(--muted)
+  }
+
+  .tag {
+    font: 500 10.5px/1 var(--f-mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 4px 6px;
+    color: var(--muted);
+    white-space: nowrap
+  }
+
+  .tag.pub {
+    color: var(--signal);
+    border-color: var(--signal)
+  }
+
+  .empty {
+    padding: 60px 0;
+    color: var(--muted);
+    text-align: center
+  }
+
+  #viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: var(--scrim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px))
+  }
+
+  #viewer[hidden] {
+    display: none
+  }
+
+  .vbox {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    width: min(1100px, 100%);
+    max-height: 100%;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1fr)
+  }
+
+  .vimg {
+    background: var(--thumb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    min-width: 0
+  }
+
+  .vimg img {
+    max-width: 100%;
+    max-height: 78vh;
+    height: auto;
+    display: block
+  }
+
+  .vinfo {
+    padding: 22px;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    min-width: 0
+  }
+
+  .vinfo h3 {
+    font: 700 24px/1.15 var(--f-display);
+    margin: 0;
+    text-wrap: balance;
+    overflow-wrap: anywhere
+  }
+
+  .vinfo dl {
+    margin: 0;
+    display: grid;
+    gap: 10px
+  }
+
+  .vinfo dt {
+    font: 500 11px var(--f-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted)
+  }
+
+  .vinfo dd {
+    margin: 2px 0 0;
+    overflow-wrap: anywhere
+  }
+
+  .vinfo .mono {
+    font-family: var(--f-mono);
+    font-size: 13px
+  }
+
+  .acts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px
+  }
+
+  .btn {
+    display: inline-block;
+    border: 1px solid var(--line);
+    background: transparent;
+    border-radius: 6px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--ink);
+    cursor: pointer;
+    font: 500 14px var(--f-body)
+  }
+
+  .btn.pri {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink)
+  }
+
+  .btn:hover {
+    border-color: var(--accent)
+  }
+
+  .nav {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line)
+  }
+
+  @media (max-width:760px) {
+    .vbox {
+      grid-template-columns: minmax(0, 1fr)
+    }
+
+    .vimg img {
+      max-height: 50vh
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    .card {
+      transition: none
+    }
+
+    .card:hover {
+      transform: none
+    }
+  }
+
+  footer {
+    padding-top: 48px;
+    color: var(--muted);
+    font: 12px var(--f-mono)
+  }
 </style>
 
 <div class="wrap">
@@ -91,13 +475,15 @@ footer{padding-top:48px;color:var(--muted);font:12px var(--f-mono)}
     <div>
       <div class="kicker">Certificate portfolio</div>
       <h1>Lubna Shireen R</h1>
-      <p class="sub">Electronics and Communication Engineering student at SRM Institute of Science and Technology, Vadapalani. Every certificate below opens full size, with its issuer, date and verification details.</p>
+      <p class="sub">Electronics and Communication Engineering student at SRM Institute of Science and Technology,
+        Vadapalani. Every certificate below opens full size, with its issuer, date and verification details.</p>
     </div>
     <div class="ledger" id="ledger"></div>
   </header>
 
   <div class="bar">
-    <input class="search" id="q" type="search" placeholder="Search by title, issuer or ID" aria-label="Search certificates">
+    <input class="search" id="q" type="search" placeholder="Search by title, issuer or ID"
+      aria-label="Search certificates">
     <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
   </div>
 
@@ -122,99 +508,101 @@ footer{padding-top:48px;color:var(--muted);font:12px var(--f-mono)}
 </div>
 
 <script>
-const DATA = [{"slug": "lubna-iarjset-certification-of-publication", "title": "Design and Comparative Analysis of 6T CMOS SRAM Cell Across Various Technology Nodes", "org": "IARJSET", "platform": "Peer-reviewed journal", "date": "Apr 2026", "key": "2026-04", "coll": "Research & Publications", "topic": "Hardware & Electronics", "ref": ["DOI", "10.17148/IARJSET.2026.134128"], "verify": "https://doi.org/10.17148/IARJSET.2026.134128", "pdf": "files/lubna-iarjset-certification-of-publication.pdf"}, {"slug": "lubna-ijert-certification-of-publication", "title": "Router-Based Extended ACL Security for a Three-Department Enterprise MIS Network: A Cisco Packet Tracer Case Study", "org": "IJERT", "platform": "Peer-reviewed journal", "date": "1 Oct 2026", "key": "2026-10-01", "coll": "Research & Publications", "topic": "Cybersecurity & Networking", "ref": ["Reg. No", "IJERTV15IS090718"], "verify": null, "pdf": "files/lubna-ijert-certification-of-publication.pdf"}, {"slug": "graphrag-inference-hackathon-participation-certificate", "title": "GraphRAG Inference Hackathon (Team The Chaos Cartel)", "org": "TigerGraph", "platform": "Hackathon", "date": "Date not shown", "key": "", "coll": "Hackathons, Workshops & Events", "topic": "AI & ML", "ref": null, "verify": null, "pdf": "files/graphrag-inference-hackathon-participation-certificate.pdf"}, {"slug": "hackathon-certificate", "title": "Internal Hackathon (Team SPECTRAX)", "org": "SRM Institute of Science and Technology, Vadapalani", "platform": "Hackathon", "date": "22 Sep 2025", "key": "2025-09-22", "coll": "Hackathons, Workshops & Events", "topic": "Events", "ref": null, "verify": null, "pdf": null}, {"slug": "ubertech", "title": "Ubertech'23 Pre-Symposium Workshop: Cutting Edge Technologies", "org": "Association of Computer Science Engineers, SRM Vadapalani", "platform": "Workshop", "date": "9 Oct 2023", "key": "2023-10-09", "coll": "Hackathons, Workshops & Events", "topic": "Events", "ref": ["Cert. code", "SRMISTVDP/DCSE/WCET/65"], "verify": null, "pdf": null}, {"slug": "basics-of-cloud-computing-aws", "title": "Basics of Cloud Computing & AWS Workshop", "org": "AWS Student Builder Group, Ujjain Engineering College", "platform": "Workshop", "date": "Date not shown", "key": "", "coll": "Hackathons, Workshops & Events", "topic": "Cloud", "ref": null, "verify": null, "pdf": null}, {"slug": "om-powerbi", "title": "Power BI Workshop", "org": "OfficeMaster", "platform": "Workshop", "date": "22 Dec 2024", "key": "2024-12-22", "coll": "Hackathons, Workshops & Events", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": "files/om-powerbi.pdf"}, {"slug": "deloitte-forage-data-analytics-certification", "title": "Data Analytics Job Simulation", "org": "Deloitte", "platform": "Forage", "date": "21 Feb 2026", "key": "2026-02-21", "coll": "Job Simulations", "topic": "Data & Analytics", "ref": ["Enrolment code", "Jmb9Nbjsbn6B9vY6b"], "verify": null, "pdf": "files/deloitte-forage-data-analytics-certification.pdf"}, {"slug": "ge-human-resource-certification", "title": "Explore Human Resources Job Simulation", "org": "GE", "platform": "Forage", "date": "30 Mar 2026", "key": "2026-03-30", "coll": "Job Simulations", "topic": "Business", "ref": ["Enrolment code", "SNTvPsE364NdwL7vg"], "verify": null, "pdf": "files/ge-human-resource-certification.pdf"}, {"slug": "mastercard-cybersecurity", "title": "Cybersecurity Job Simulation", "org": "Mastercard", "platform": "Forage", "date": "5 Apr 2026", "key": "2026-04-05", "coll": "Job Simulations", "topic": "Cybersecurity & Networking", "ref": ["Enrolment code", "sckjzTftEDYnbHAnf"], "verify": null, "pdf": "files/mastercard-cybersecurity.pdf"}, {"slug": "quantium-data-analytics-certification", "title": "Data Analytics Job Simulation", "org": "Quantium", "platform": "Forage", "date": "2 Mar 2026", "key": "2026-03-02", "coll": "Job Simulations", "topic": "Data & Analytics", "ref": ["Enrolment code", "s3y4XF72ouaQxBD7t"], "verify": null, "pdf": "files/quantium-data-analytics-certification.pdf"}, {"slug": "tata-cybersecurity-security-analyst", "title": "Cybersecurity Analyst Job Simulation", "org": "Tata", "platform": "Forage", "date": "4 May 2026", "key": "2026-05-04", "coll": "Job Simulations", "topic": "Cybersecurity & Networking", "ref": ["Enrolment code", "833qjTBtQwsmkrA4w"], "verify": null, "pdf": "files/tata-cybersecurity-security-analyst.pdf"}, {"slug": "aws-cloud-technical-essentials", "title": "AWS Cloud Technical Essentials", "org": "Amazon Web Services", "platform": "Coursera", "date": "1 Feb 2026", "key": "2026-02-01", "coll": "Coursera", "topic": "Cloud", "ref": ["Coursera code", "HUR6LY23EC7J"], "verify": "https://coursera.org/verify/HUR6LY23EC7J", "pdf": "files/aws-cloud-technical-essentials.pdf"}, {"slug": "introduction-to-information-technology-and-aws-cloud", "title": "Introduction to Information Technology and AWS Cloud", "org": "Amazon Web Services", "platform": "Coursera", "date": "19 Jan 2026", "key": "2026-01-19", "coll": "Coursera", "topic": "Cloud", "ref": ["Coursera code", "5VQUK6NK9JLE"], "verify": "https://coursera.org/verify/5VQUK6NK9JLE", "pdf": "files/introduction-to-information-technology-and-aws-cloud.pdf"}, {"slug": "foundations-data-data-everywhere", "title": "Foundations: Data, Data, Everywhere", "org": "Google", "platform": "Coursera", "date": "29 Mar 2026", "key": "2026-03-29", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "T58WEYCAERX2"], "verify": "https://coursera.org/verify/T58WEYCAERX2", "pdf": "files/foundations-data-data-everywhere.pdf"}, {"slug": "from-excel-to-power-bi", "title": "From Excel to Power BI", "org": "Knowledge Accelerators", "platform": "Coursera", "date": "26 Jun 2025", "key": "2025-06-26", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "XBSJ8KXKA20D"], "verify": "https://coursera.org/verify/XBSJ8KXKA20D", "pdf": "files/from-excel-to-power-bi.pdf"}, {"slug": "intro-to-ai", "title": "Introduction to Artificial Intelligence (AI)", "org": "IBM", "platform": "Coursera", "date": "24 Jun 2025", "key": "2025-06-24", "coll": "Coursera", "topic": "AI & ML", "ref": ["Coursera code", "J3KUSQ4LFI17"], "verify": "https://coursera.org/verify/J3KUSQ4LFI17", "pdf": "files/intro-to-ai.pdf"}, {"slug": "ml-for-all", "title": "Machine Learning for All", "org": "University of London", "platform": "Coursera", "date": "24 Jun 2025", "key": "2025-06-24", "coll": "Coursera", "topic": "AI & ML", "ref": ["Coursera code", "3J990QBUC5EQ"], "verify": "https://coursera.org/verify/3J990QBUC5EQ", "pdf": "files/ml-for-all.pdf"}, {"slug": "python-project-for-data-science", "title": "Python Project for Data Science", "org": "IBM", "platform": "Coursera", "date": "5 Jun 2025", "key": "2025-06-05", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "01LQEY0M43N8"], "verify": "https://coursera.org/verify/01LQEY0M43N8", "pdf": "files/python-project-for-data-science.pdf"}, {"slug": "data-science-methodology", "title": "Data Science Methodology", "org": "IBM", "platform": "Coursera", "date": "5 Jun 2025", "key": "2025-06-05", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "ANFFHFFW1SUH"], "verify": "https://coursera.org/verify/ANFFHFFW1SUH", "pdf": "files/data-science-methodology.pdf"}, {"slug": "intro-to-at-ds-dm", "title": "Intro to Analytic Thinking, Data Science, and Data Mining", "org": "University of California, Irvine", "platform": "Coursera", "date": "6 Aug 2024", "key": "2024-08-06", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "YNL2NFAI10WU"], "verify": "https://coursera.org/verify/YNL2NFAI10WU", "pdf": "files/intro-to-at-ds-dm.pdf"}, {"slug": "viral-marketing", "title": "Viral Marketing and How to Craft Contagious Content", "org": "University of Pennsylvania", "platform": "Coursera", "date": "6 Jun 2024", "key": "2024-06-06", "coll": "Coursera", "topic": "Business", "ref": ["Coursera code", "P4ZA3TU7EN2Y"], "verify": "https://coursera.org/verify/P4ZA3TU7EN2Y", "pdf": "files/viral-marketing.pdf"}, {"slug": "what-is-datascience", "title": "What is Data Science?", "org": "IBM", "platform": "Coursera", "date": "1 Jun 2024", "key": "2024-06-01", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "JNJN83ZWUHVF"], "verify": "https://coursera.org/verify/JNJN83ZWUHVF", "pdf": "files/what-is-datascience.pdf"}, {"slug": "intro-to-cyber-attacts", "title": "Introduction to Cyber Attacks", "org": "New York University", "platform": "Coursera", "date": "19 Mar 2024", "key": "2024-03-19", "coll": "Coursera", "topic": "Cybersecurity & Networking", "ref": ["Coursera code", "BWEXPWB5B7RN"], "verify": "https://coursera.org/verify/BWEXPWB5B7RN", "pdf": "files/intro-to-cyber-attacts.pdf"}, {"slug": "programming-fundamentals", "title": "Programming Fundamentals", "org": "Duke University", "platform": "Coursera", "date": "2 Mar 2024", "key": "2024-03-02", "coll": "Coursera", "topic": "Programming", "ref": ["Coursera code", "CDFUPJF7LWNW"], "verify": "https://coursera.org/verify/CDFUPJF7LWNW", "pdf": "files/programming-fundamentals.pdf"}, {"slug": "advanced-cyber-security", "title": "Advanced Cyber Security: Threats and Governance", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2024", "key": "2024-12", "coll": "Great Learning Academy", "topic": "Cybersecurity & Networking", "ref": null, "verify": null, "pdf": null}, {"slug": "generative-ai", "title": "Generative AI for Beginners", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2024", "key": "2024-12", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null}, {"slug": "ai-fundamentals", "title": "Artificial Intelligence Fundamentals", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null}, {"slug": "data-analysis-projects", "title": "Data Analysis Projects", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "intro-to-ethical-hacking", "title": "Introduction to Ethical Hacking", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "Cybersecurity & Networking", "ref": null, "verify": null, "pdf": null}, {"slug": "python-for-data-analysis", "title": "Python for Data Analysis", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "aws-project", "title": "AWS Project", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Cloud", "ref": null, "verify": null, "pdf": null}, {"slug": "arduino-vs-raspberry-pi", "title": "Arduino vs Raspberry Pi", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Hardware & Electronics", "ref": null, "verify": null, "pdf": null}, {"slug": "basics-of-time-series-in-data-science", "title": "Basics of Time Series in Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "ds-with-python", "title": "Data Science with Python", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "data-science-mathematics", "title": "Data Science Mathematics", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "data-science-in-fmcg", "title": "Data Science in FMCG", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "ides-for-data-science", "title": "IDEs for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null}, {"slug": "python-data-structures", "title": "Python Data Structures", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null}, {"slug": "statistics-for-data-science", "title": "Statistics for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "build-python-app-using-chatgpt", "title": "Build Python App using ChatGPT", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null}, {"slug": "chatgpt-for-coders", "title": "ChatGPT for Coders", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null}, {"slug": "clustering-in-r", "title": "Clustering in R", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "intro-to-ds", "title": "Introduction to Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "probability-for-data-science", "title": "Probability for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "python-pandas", "title": "Python Pandas", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "python-for-ds", "title": "Python for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "sql-for-data-science", "title": "SQL for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "computer-vision-essentials", "title": "Computer Vision Essentials", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2023", "key": "2023-12", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null}, {"slug": "intro-dl", "title": "Introduction to Deep Learning", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2023", "key": "2023-12", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null}, {"slug": "video-editing-basics", "title": "Video Editing Basics", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2023", "key": "2023-12", "coll": "Great Learning Academy", "topic": "Design & Media", "ref": null, "verify": null, "pdf": null}, {"slug": "intro-to-gd-with-photoshop", "title": "Intro to Graphic Design with Photoshop", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Nov 2023", "key": "2023-11", "coll": "Great Learning Academy", "topic": "Design & Media", "ref": null, "verify": null, "pdf": null}, {"slug": "visual-graphics-in-c", "title": "Visual Graphics in C", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Nov 2023", "key": "2023-11", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null}, {"slug": "data-visualization-with-power-bi", "title": "Data Visualization with Power BI", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2023", "key": "2023-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "ds-projects", "title": "Data Science Projects", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2023", "key": "2023-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "ai-projects", "title": "Artificial Intelligence Projects", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Apr 2023", "key": "2023-04", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null}, {"slug": "ds-foundation", "title": "Data Science Foundations", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Apr 2023", "key": "2023-04", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null}, {"slug": "udemy-sql-for-data-analytics", "title": "SQL for Data Analytics", "org": "Udemy", "platform": "Udemy", "date": "8 Jul 2025", "key": "2025-07-08", "coll": "Other Platforms", "topic": "Data & Analytics", "ref": ["Certificate no", "UC-b8756b93-dd67-4c44-ac7e-317db0ede0a9"], "verify": "https://ude.my/UC-b8756b93-dd67-4c44-ac7e-317db0ede0a9", "pdf": "files/udemy-sql-for-data-analytics.pdf"}, {"slug": "verilog-certificate-linkedin", "title": "Learning Verilog for FPGA Development", "org": "LinkedIn Learning", "platform": "LinkedIn Learning", "date": "1 Oct 2025", "key": "2025-10-01", "coll": "Other Platforms", "topic": "Hardware & Electronics", "ref": ["Certificate ID", "deefe1e334fec57c32107c383d74e7d71fdcaf5e8cab0fc66be018ebf892448a"], "verify": null, "pdf": "files/verilog-certificate-linkedin.pdf"}, {"slug": "intro-to-ds-simplilearn", "title": "Introduction to Data Science", "org": "Simplilearn", "platform": "Simplilearn", "date": "18 Apr 2026", "key": "2026-04-18", "coll": "Other Platforms", "topic": "Data & Analytics", "ref": ["Certificate code", "10121889"], "verify": null, "pdf": "files/intro-to-ds-simplilearn.pdf"}];
-const ORDER = ["Research & Publications","Hackathons, Workshops & Events","Job Simulations","Coursera","Great Learning Academy","Other Platforms"];
-const VIA = ["Coursera","Forage"];
-const via = e => VIA.includes(e.platform);
-const state = {topic:"All", q:"", list:[], idx:-1};
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const DATA = [
+    {"slug":"e-chip-5-01","title":"E-Chip 5.01 — Certificate of Appreciation","org":"SRM Institute of Science and Technology, Vadapalani","platform":"E-Chip Department Newsletter","date":"2025","key":"2025-06","coll":"Other Platforms","topic":"Design & Media","ref":null,"verify":null,"pdf":null},
+{"slug":"e-chip-5-02","title":"E-Chip 5.02 — Certificate of Appreciation","org":"SRM Institute of Science and Technology, Vadapalani","platform":"E-Chip Department Newsletter","date":"2026","key":"2026-06","coll":"Other Platforms","topic":"Design & Media","ref":null,"verify":null,"pdf":null},{ "slug": "lubna-iarjset-certification-of-publication", "title": "Design and Comparative Analysis of 6T CMOS SRAM Cell Across Various Technology Nodes", "org": "IARJSET", "platform": "Peer-reviewed journal", "date": "Apr 2026", "key": "2026-04", "coll": "Research & Publications", "topic": "Hardware & Electronics", "ref": ["DOI", "10.17148/IARJSET.2026.134128"], "verify": "https://doi.org/10.17148/IARJSET.2026.134128", "pdf": "files/lubna-iarjset-certification-of-publication.pdf" }, { "slug": "lubna-ijert-certification-of-publication", "title": "Router-Based Extended ACL Security for a Three-Department Enterprise MIS Network: A Cisco Packet Tracer Case Study", "org": "IJERT", "platform": "Peer-reviewed journal", "date": "1 Oct 2026", "key": "2026-10-01", "coll": "Research & Publications", "topic": "Cybersecurity & Networking", "ref": ["Reg. No", "IJERTV15IS090718"], "verify": null, "pdf": "files/lubna-ijert-certification-of-publication.pdf" }, { "slug": "graphrag-inference-hackathon-participation-certificate", "title": "GraphRAG Inference Hackathon (Team The Chaos Cartel)", "org": "TigerGraph", "platform": "Hackathon", "date": "Date not shown", "key": "", "coll": "Hackathons, Workshops & Events", "topic": "AI & ML", "ref": null, "verify": null, "pdf": "files/graphrag-inference-hackathon-participation-certificate.pdf" }, { "slug": "hackathon-certificate", "title": "Internal Hackathon (Team SPECTRAX)", "org": "SRM Institute of Science and Technology, Vadapalani", "platform": "Hackathon", "date": "22 Sep 2025", "key": "2025-09-22", "coll": "Hackathons, Workshops & Events", "topic": "Events", "ref": null, "verify": null, "pdf": null }, { "slug": "ubertech", "title": "Ubertech'23 Pre-Symposium Workshop: Cutting Edge Technologies", "org": "Association of Computer Science Engineers, SRM Vadapalani", "platform": "Workshop", "date": "9 Oct 2023", "key": "2023-10-09", "coll": "Hackathons, Workshops & Events", "topic": "Events", "ref": ["Cert. code", "SRMISTVDP/DCSE/WCET/65"], "verify": null, "pdf": null }, { "slug": "basics-of-cloud-computing-aws", "title": "Basics of Cloud Computing & AWS Workshop", "org": "AWS Student Builder Group, Ujjain Engineering College", "platform": "Workshop", "date": "Date not shown", "key": "", "coll": "Hackathons, Workshops & Events", "topic": "Cloud", "ref": null, "verify": null, "pdf": null }, { "slug": "om-powerbi", "title": "Power BI Workshop", "org": "OfficeMaster", "platform": "Workshop", "date": "22 Dec 2024", "key": "2024-12-22", "coll": "Hackathons, Workshops & Events", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": "files/om-powerbi.pdf" }, { "slug": "deloitte-forage-data-analytics-certification", "title": "Data Analytics Job Simulation", "org": "Deloitte", "platform": "Forage", "date": "21 Feb 2026", "key": "2026-02-21", "coll": "Job Simulations", "topic": "Data & Analytics", "ref": ["Enrolment code", "Jmb9Nbjsbn6B9vY6b"], "verify": null, "pdf": "files/deloitte-forage-data-analytics-certification.pdf" }, { "slug": "ge-human-resource-certification", "title": "Explore Human Resources Job Simulation", "org": "GE", "platform": "Forage", "date": "30 Mar 2026", "key": "2026-03-30", "coll": "Job Simulations", "topic": "Business", "ref": ["Enrolment code", "SNTvPsE364NdwL7vg"], "verify": null, "pdf": "files/ge-human-resource-certification.pdf" }, { "slug": "mastercard-cybersecurity", "title": "Cybersecurity Job Simulation", "org": "Mastercard", "platform": "Forage", "date": "5 Apr 2026", "key": "2026-04-05", "coll": "Job Simulations", "topic": "Cybersecurity & Networking", "ref": ["Enrolment code", "sckjzTftEDYnbHAnf"], "verify": null, "pdf": "files/mastercard-cybersecurity.pdf" }, { "slug": "quantium-data-analytics-certification", "title": "Data Analytics Job Simulation", "org": "Quantium", "platform": "Forage", "date": "2 Mar 2026", "key": "2026-03-02", "coll": "Job Simulations", "topic": "Data & Analytics", "ref": ["Enrolment code", "s3y4XF72ouaQxBD7t"], "verify": null, "pdf": "files/quantium-data-analytics-certification.pdf" }, { "slug": "tata-cybersecurity-security-analyst", "title": "Cybersecurity Analyst Job Simulation", "org": "Tata", "platform": "Forage", "date": "4 May 2026", "key": "2026-05-04", "coll": "Job Simulations", "topic": "Cybersecurity & Networking", "ref": ["Enrolment code", "833qjTBtQwsmkrA4w"], "verify": null, "pdf": "files/tata-cybersecurity-security-analyst.pdf" }, { "slug": "aws-cloud-technical-essentials", "title": "AWS Cloud Technical Essentials", "org": "Amazon Web Services", "platform": "Coursera", "date": "1 Feb 2026", "key": "2026-02-01", "coll": "Coursera", "topic": "Cloud", "ref": ["Coursera code", "HUR6LY23EC7J"], "verify": "https://coursera.org/verify/HUR6LY23EC7J", "pdf": "files/aws-cloud-technical-essentials.pdf" }, { "slug": "introduction-to-information-technology-and-aws-cloud", "title": "Introduction to Information Technology and AWS Cloud", "org": "Amazon Web Services", "platform": "Coursera", "date": "19 Jan 2026", "key": "2026-01-19", "coll": "Coursera", "topic": "Cloud", "ref": ["Coursera code", "5VQUK6NK9JLE"], "verify": "https://coursera.org/verify/5VQUK6NK9JLE", "pdf": "files/introduction-to-information-technology-and-aws-cloud.pdf" }, { "slug": "foundations-data-data-everywhere", "title": "Foundations: Data, Data, Everywhere", "org": "Google", "platform": "Coursera", "date": "29 Mar 2026", "key": "2026-03-29", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "T58WEYCAERX2"], "verify": "https://coursera.org/verify/T58WEYCAERX2", "pdf": "files/foundations-data-data-everywhere.pdf" }, { "slug": "from-excel-to-power-bi", "title": "From Excel to Power BI", "org": "Knowledge Accelerators", "platform": "Coursera", "date": "26 Jun 2025", "key": "2025-06-26", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "XBSJ8KXKA20D"], "verify": "https://coursera.org/verify/XBSJ8KXKA20D", "pdf": "files/from-excel-to-power-bi.pdf" }, { "slug": "intro-to-ai", "title": "Introduction to Artificial Intelligence (AI)", "org": "IBM", "platform": "Coursera", "date": "24 Jun 2025", "key": "2025-06-24", "coll": "Coursera", "topic": "AI & ML", "ref": ["Coursera code", "J3KUSQ4LFI17"], "verify": "https://coursera.org/verify/J3KUSQ4LFI17", "pdf": "files/intro-to-ai.pdf" }, { "slug": "ml-for-all", "title": "Machine Learning for All", "org": "University of London", "platform": "Coursera", "date": "24 Jun 2025", "key": "2025-06-24", "coll": "Coursera", "topic": "AI & ML", "ref": ["Coursera code", "3J990QBUC5EQ"], "verify": "https://coursera.org/verify/3J990QBUC5EQ", "pdf": "files/ml-for-all.pdf" }, { "slug": "python-project-for-data-science", "title": "Python Project for Data Science", "org": "IBM", "platform": "Coursera", "date": "5 Jun 2025", "key": "2025-06-05", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "01LQEY0M43N8"], "verify": "https://coursera.org/verify/01LQEY0M43N8", "pdf": "files/python-project-for-data-science.pdf" }, { "slug": "data-science-methodology", "title": "Data Science Methodology", "org": "IBM", "platform": "Coursera", "date": "5 Jun 2025", "key": "2025-06-05", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "ANFFHFFW1SUH"], "verify": "https://coursera.org/verify/ANFFHFFW1SUH", "pdf": "files/data-science-methodology.pdf" }, { "slug": "intro-to-at-ds-dm", "title": "Intro to Analytic Thinking, Data Science, and Data Mining", "org": "University of California, Irvine", "platform": "Coursera", "date": "6 Aug 2024", "key": "2024-08-06", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "YNL2NFAI10WU"], "verify": "https://coursera.org/verify/YNL2NFAI10WU", "pdf": "files/intro-to-at-ds-dm.pdf" }, { "slug": "viral-marketing", "title": "Viral Marketing and How to Craft Contagious Content", "org": "University of Pennsylvania", "platform": "Coursera", "date": "6 Jun 2024", "key": "2024-06-06", "coll": "Coursera", "topic": "Business", "ref": ["Coursera code", "P4ZA3TU7EN2Y"], "verify": "https://coursera.org/verify/P4ZA3TU7EN2Y", "pdf": "files/viral-marketing.pdf" }, { "slug": "what-is-datascience", "title": "What is Data Science?", "org": "IBM", "platform": "Coursera", "date": "1 Jun 2024", "key": "2024-06-01", "coll": "Coursera", "topic": "Data & Analytics", "ref": ["Coursera code", "JNJN83ZWUHVF"], "verify": "https://coursera.org/verify/JNJN83ZWUHVF", "pdf": "files/what-is-datascience.pdf" }, { "slug": "intro-to-cyber-attacts", "title": "Introduction to Cyber Attacks", "org": "New York University", "platform": "Coursera", "date": "19 Mar 2024", "key": "2024-03-19", "coll": "Coursera", "topic": "Cybersecurity & Networking", "ref": ["Coursera code", "BWEXPWB5B7RN"], "verify": "https://coursera.org/verify/BWEXPWB5B7RN", "pdf": "files/intro-to-cyber-attacts.pdf" }, { "slug": "programming-fundamentals", "title": "Programming Fundamentals", "org": "Duke University", "platform": "Coursera", "date": "2 Mar 2024", "key": "2024-03-02", "coll": "Coursera", "topic": "Programming", "ref": ["Coursera code", "CDFUPJF7LWNW"], "verify": "https://coursera.org/verify/CDFUPJF7LWNW", "pdf": "files/programming-fundamentals.pdf" }, { "slug": "advanced-cyber-security", "title": "Advanced Cyber Security: Threats and Governance", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2024", "key": "2024-12", "coll": "Great Learning Academy", "topic": "Cybersecurity & Networking", "ref": null, "verify": null, "pdf": null }, { "slug": "generative-ai", "title": "Generative AI for Beginners", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2024", "key": "2024-12", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null }, { "slug": "ai-fundamentals", "title": "Artificial Intelligence Fundamentals", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null }, { "slug": "data-analysis-projects", "title": "Data Analysis Projects", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "intro-to-ethical-hacking", "title": "Introduction to Ethical Hacking", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "Cybersecurity & Networking", "ref": null, "verify": null, "pdf": null }, { "slug": "python-for-data-analysis", "title": "Python for Data Analysis", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Sep 2024", "key": "2024-09", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "aws-project", "title": "AWS Project", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Cloud", "ref": null, "verify": null, "pdf": null }, { "slug": "arduino-vs-raspberry-pi", "title": "Arduino vs Raspberry Pi", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Hardware & Electronics", "ref": null, "verify": null, "pdf": null }, { "slug": "basics-of-time-series-in-data-science", "title": "Basics of Time Series in Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "ds-with-python", "title": "Data Science with Python", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "data-science-mathematics", "title": "Data Science Mathematics", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "data-science-in-fmcg", "title": "Data Science in FMCG", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "ides-for-data-science", "title": "IDEs for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null }, { "slug": "python-data-structures", "title": "Python Data Structures", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null }, { "slug": "statistics-for-data-science", "title": "Statistics for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2024", "key": "2024-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "build-python-app-using-chatgpt", "title": "Build Python App using ChatGPT", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null }, { "slug": "chatgpt-for-coders", "title": "ChatGPT for Coders", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null }, { "slug": "clustering-in-r", "title": "Clustering in R", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "intro-to-ds", "title": "Introduction to Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "probability-for-data-science", "title": "Probability for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "python-pandas", "title": "Python Pandas", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "python-for-ds", "title": "Python for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "sql-for-data-science", "title": "SQL for Data Science", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jun 2024", "key": "2024-06", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "computer-vision-essentials", "title": "Computer Vision Essentials", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2023", "key": "2023-12", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null }, { "slug": "intro-dl", "title": "Introduction to Deep Learning", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2023", "key": "2023-12", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null }, { "slug": "video-editing-basics", "title": "Video Editing Basics", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Dec 2023", "key": "2023-12", "coll": "Great Learning Academy", "topic": "Design & Media", "ref": null, "verify": null, "pdf": null }, { "slug": "intro-to-gd-with-photoshop", "title": "Intro to Graphic Design with Photoshop", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Nov 2023", "key": "2023-11", "coll": "Great Learning Academy", "topic": "Design & Media", "ref": null, "verify": null, "pdf": null }, { "slug": "visual-graphics-in-c", "title": "Visual Graphics in C", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Nov 2023", "key": "2023-11", "coll": "Great Learning Academy", "topic": "Programming", "ref": null, "verify": null, "pdf": null }, { "slug": "data-visualization-with-power-bi", "title": "Data Visualization with Power BI", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2023", "key": "2023-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "ds-projects", "title": "Data Science Projects", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Jul 2023", "key": "2023-07", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "ai-projects", "title": "Artificial Intelligence Projects", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Apr 2023", "key": "2023-04", "coll": "Great Learning Academy", "topic": "AI & ML", "ref": null, "verify": null, "pdf": null }, { "slug": "ds-foundation", "title": "Data Science Foundations", "org": "Great Learning Academy", "platform": "Great Learning", "date": "Apr 2023", "key": "2023-04", "coll": "Great Learning Academy", "topic": "Data & Analytics", "ref": null, "verify": null, "pdf": null }, { "slug": "udemy-sql-for-data-analytics", "title": "SQL for Data Analytics", "org": "Udemy", "platform": "Udemy", "date": "8 Jul 2025", "key": "2025-07-08", "coll": "Other Platforms", "topic": "Data & Analytics", "ref": ["Certificate no", "UC-b8756b93-dd67-4c44-ac7e-317db0ede0a9"], "verify": "https://ude.my/UC-b8756b93-dd67-4c44-ac7e-317db0ede0a9", "pdf": "files/udemy-sql-for-data-analytics.pdf" }, { "slug": "verilog-certificate-linkedin", "title": "Learning Verilog for FPGA Development", "org": "LinkedIn Learning", "platform": "LinkedIn Learning", "date": "1 Oct 2025", "key": "2025-10-01", "coll": "Other Platforms", "topic": "Hardware & Electronics", "ref": ["Certificate ID", "deefe1e334fec57c32107c383d74e7d71fdcaf5e8cab0fc66be018ebf892448a"], "verify": null, "pdf": "files/verilog-certificate-linkedin.pdf" }, { "slug": "intro-to-ds-simplilearn", "title": "Introduction to Data Science", "org": "Simplilearn", "platform": "Simplilearn", "date": "18 Apr 2026", "key": "2026-04-18", "coll": "Other Platforms", "topic": "Data & Analytics", "ref": ["Certificate code", "10121889"], "verify": null, "pdf": "files/intro-to-ds-simplilearn.pdf" }];
+  const ORDER = ["Research & Publications", "Hackathons, Workshops & Events", "Job Simulations", "Coursera", "Great Learning Academy", "Other Platforms"];
+  const VIA = ["Coursera", "Forage"];
+  const via = e => VIA.includes(e.platform);
+  const state = { topic: "All", q: "", list: [], idx: -1 };
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-DATA.forEach(e => {
-  const t = e.title, o = e.org;
-  e.hay = (t+" "+o+" "+e.platform+" "+e.topic+" "+(e.ref?e.ref[1]:"")).toLowerCase();
-});
+  DATA.forEach(e => {
+    const t = e.title, o = e.org;
+    e.hay = (t + " " + o + " " + e.platform + " " + e.topic + " " + (e.ref ? e.ref[1] : "")).toLowerCase();
+  });
 
-function ledger(){
-  const years = DATA.map(e => (e.key||"").slice(0,4)).filter(Boolean).sort();
-  const items = [
-    [DATA.length, "Certificates"],
-    [DATA.filter(e=>e.coll===ORDER[0]).length, "Journal publications"],
-    [DATA.filter(e=>e.coll===ORDER[2]).length, "Job simulations"],
-    [years[0]+"–"+years[years.length-1], "Years covered"]
-  ];
-  $("ledger").innerHTML = items.map(([n,l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("");
-}
+  function ledger() {
+    const years = DATA.map(e => (e.key || "").slice(0, 4)).filter(Boolean).sort();
+    const items = [
+      [DATA.length, "Certificates"],
+      [DATA.filter(e => e.coll === ORDER[0]).length, "Journal publications"],
+      [DATA.filter(e => e.coll === ORDER[2]).length, "Job simulations"],
+      [years[0] + "–" + years[years.length - 1], "Years covered"]
+    ];
+    $("ledger").innerHTML = items.map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("");
+  }
 
-function chips(){
-  const topics = [...new Set(DATA.map(e=>e.topic))].sort((a,b)=>DATA.filter(e=>e.topic===b).length-DATA.filter(e=>e.topic===a).length);
-  const all = ["All", ...topics];
-  $("chips").innerHTML = all.map(t => {
-    const n = t==="All" ? DATA.length : DATA.filter(e=>e.topic===t).length;
-    return `<button class="chip" type="button" data-t="${esc(t)}" aria-pressed="${t===state.topic}">${esc(t)}<small>${n}</small></button>`;
-  }).join("");
-}
+  function chips() {
+    const topics = [...new Set(DATA.map(e => e.topic))].sort((a, b) => DATA.filter(e => e.topic === b).length - DATA.filter(e => e.topic === a).length);
+    const all = ["All", ...topics];
+    $("chips").innerHTML = all.map(t => {
+      const n = t === "All" ? DATA.length : DATA.filter(e => e.topic === t).length;
+      return `<button class="chip" type="button" data-t="${esc(t)}" aria-pressed="${t === state.topic}">${esc(t)}<small>${n}</small></button>`;
+    }).join("");
+  }
 
-function visible(){
-  const q = state.q.trim().toLowerCase();
-  return DATA.filter(e => (state.topic==="All"||e.topic===state.topic) && (!q||e.hay.includes(q)));
-}
+  function visible() {
+    const q = state.q.trim().toLowerCase();
+    return DATA.filter(e => (state.topic === "All" || e.topic === state.topic) && (!q || e.hay.includes(q)));
+  }
 
-function render(){
-  const vis = visible();
-  state.list = [];
-  let html = "";
-  ORDER.forEach(c => {
-    const items = vis.filter(e=>e.coll===c).sort((a,b)=> (b.key||"").localeCompare(a.key||""));
-    if(!items.length) return;
-    html += `<section class="group"><div class="ghead"><h2>${esc(c)}</h2><span class="n">${items.length} ${items.length===1?"CERTIFICATE":"CERTIFICATES"}</span></div><div class="grid">`;
-    items.forEach(e => {
-      const i = state.list.push(e)-1;
-      const plat = via(e) ? " · "+e.platform : "";
-      html += `<button class="card" type="button" data-i="${i}">
+  function render() {
+    const vis = visible();
+    state.list = [];
+    let html = "";
+    ORDER.forEach(c => {
+      const items = vis.filter(e => e.coll === c).sort((a, b) => (b.key || "").localeCompare(a.key || ""));
+      if (!items.length) return;
+      html += `<section class="group"><div class="ghead"><h2>${esc(c)}</h2><span class="n">${items.length} ${items.length === 1 ? "CERTIFICATE" : "CERTIFICATES"}</span></div><div class="grid">`;
+      items.forEach(e => {
+        const i = state.list.push(e) - 1;
+        const plat = via(e) ? " · " + e.platform : "";
+        html += `<button class="card" type="button" data-i="${i}">
         <span class="im"><img src="thumbs/${e.slug}.jpg" alt="Certificate: ${esc(e.title)}" loading="lazy" decoding="async"></span>
         <span class="tx"><h3>${esc(e.title)}</h3><span class="org">${esc(e.org)}</span>
         <span class="meta"><span>${esc(e.date)}${esc(plat)}</span></span></span></button>`;
+      });
+      html += `</div></section>`;
     });
-    html += `</div></section>`;
-  });
-  $("out").innerHTML = html || `<p class="empty">No certificates match that search.</p>`;
-  $("foot").textContent = vis.length+" of "+DATA.length+" certificates shown";
-}
+    $("out").innerHTML = html || `<p class="empty">No certificates match that search.</p>`;
+    $("foot").textContent = vis.length + " of " + DATA.length + " certificates shown";
+  }
 
-function open(i){
-  const e = state.list[i]; if(!e) return;
-  state.idx = i;
-  $("vimg").src = "thumbs/"+e.slug+".jpg"; $("vimg").alt = "Certificate: "+e.title;
-  $("vt").textContent = e.title;
-  let dl = `<div><dt>Issued by</dt><dd>${esc(e.org)}${via(e)?" via "+esc(e.platform):""}</dd></div>
+  function open(i) {
+    const e = state.list[i]; if (!e) return;
+    state.idx = i;
+    $("vimg").src = "thumbs/" + e.slug + ".jpg"; $("vimg").alt = "Certificate: " + e.title;
+    $("vt").textContent = e.title;
+    let dl = `<div><dt>Issued by</dt><dd>${esc(e.org)}${via(e) ? " via " + esc(e.platform) : ""}</dd></div>
     <div><dt>Date</dt><dd>${esc(e.date)}</dd></div>
     <div><dt>Topic</dt><dd>${esc(e.topic)}</dd></div>`;
-  if(e.ref) dl += `<div><dt>${esc(e.ref[0])}</dt><dd class="mono">${esc(e.ref[1])}</dd></div>`;
-  $("vd").innerHTML = dl;
-  let a = "";
-  if(e.verify) a += `<a class="btn pri" href="${esc(e.verify)}" target="_blank" rel="noopener">Verify credential</a>`;
-  a += e.pdf ? `<a class="btn" href="${esc(e.pdf)}" target="_blank" rel="noopener">Open PDF</a>` : `<a class="btn" href="thumbs/${e.slug}.jpg" target="_blank" rel="noopener">Open full image</a>`;
-  $("va").innerHTML = a;
-  $("viewer").hidden = false;
-  $("close").focus();
-}
-function closeV(){ $("viewer").hidden = true; const c = document.querySelector(`.card[data-i="${state.idx}"]`); if(c) c.focus(); }
-function step(d){ const n = state.list.length; if(n) open((state.idx+d+n)%n); }
+    if (e.ref) dl += `<div><dt>${esc(e.ref[0])}</dt><dd class="mono">${esc(e.ref[1])}</dd></div>`;
+    $("vd").innerHTML = dl;
+    let a = "";
+    if (e.verify) a += `<a class="btn pri" href="${esc(e.verify)}" target="_blank" rel="noopener">Verify credential</a>`;
+    a += e.pdf ? `<a class="btn" href="${esc(e.pdf)}" target="_blank" rel="noopener">Open PDF</a>` : `<a class="btn" href="thumbs/${e.slug}.jpg" target="_blank" rel="noopener">Open full image</a>`;
+    $("va").innerHTML = a;
+    $("viewer").hidden = false;
+    $("close").focus();
+  }
+  function closeV() { $("viewer").hidden = true; const c = document.querySelector(`.card[data-i="${state.idx}"]`); if (c) c.focus(); }
+  function step(d) { const n = state.list.length; if (n) open((state.idx + d + n) % n); }
 
-$("out").addEventListener("click", ev => { const c = ev.target.closest(".card"); if(c) open(+c.dataset.i); });
-$("chips").addEventListener("click", ev => { const b = ev.target.closest(".chip"); if(!b) return; state.topic = b.dataset.t; chips(); render(); });
-$("q").addEventListener("input", ev => { state.q = ev.target.value; render(); });
-$("close").addEventListener("click", closeV);
-$("prev").addEventListener("click", () => step(-1));
-$("next").addEventListener("click", () => step(1));
-$("viewer").addEventListener("click", ev => { if(ev.target.id==="viewer") closeV(); });
-document.addEventListener("keydown", ev => {
-  if($("viewer").hidden) return;
-  if(ev.key==="Escape") closeV();
-  if(ev.key==="ArrowLeft") step(-1);
-  if(ev.key==="ArrowRight") step(1);
-});
+  $("out").addEventListener("click", ev => { const c = ev.target.closest(".card"); if (c) open(+c.dataset.i); });
+  $("chips").addEventListener("click", ev => { const b = ev.target.closest(".chip"); if (!b) return; state.topic = b.dataset.t; chips(); render(); });
+  $("q").addEventListener("input", ev => { state.q = ev.target.value; render(); });
+  $("close").addEventListener("click", closeV);
+  $("prev").addEventListener("click", () => step(-1));
+  $("next").addEventListener("click", () => step(1));
+  $("viewer").addEventListener("click", ev => { if (ev.target.id === "viewer") closeV(); });
+  document.addEventListener("keydown", ev => {
+    if ($("viewer").hidden) return;
+    if (ev.key === "Escape") closeV();
+    if (ev.key === "ArrowLeft") step(-1);
+    if (ev.key === "ArrowRight") step(1);
+  });
 
-ledger(); chips(); render();
+  ledger(); chips(); render();
 </script>
